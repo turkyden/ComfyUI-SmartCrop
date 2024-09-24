@@ -21,14 +21,14 @@ class ImageSmartCrop:
         return {
             "required": {
                 "image": ("IMAGE",),
-                "stroke_width": ("INT", {
+                "width": ("INT", {
                     "default": 1024, 
                     "min": 0, #Minimum value
                     "max": 2048, #Maximum value
                     "step": 1, #Slider's step
                     "display": "number" # Cosmetic only: display as "number" or "slider"
                 }),
-                "stroke_height": ("INT", {
+                "height": ("INT", {
                     "default": 1024, 
                     "min": 0, #Minimum value
                     "max": 2048, #Maximum value
@@ -43,10 +43,10 @@ class ImageSmartCrop:
     RETURN_NAMES = ("image",)
     FUNCTION = "imageSmartCrop"
 
-    def imageSmartCrop(self, image, stroke_width, stroke_height):
+    def imageSmartCrop(self, image, width, height):
         cropper = SmartCrop()
         image = tensor2pil(image)
-        result = cropper.crop(image, stroke_width, stroke_height)
+        result = cropper.crop(image, width, height)
         box = (
             result['top_crop']['x'],
             result['top_crop']['y'],
@@ -54,5 +54,8 @@ class ImageSmartCrop:
             result['top_crop']['height'] + result['top_crop']['y']
         )
         cropped_image = image.crop(box)
+        cropped_image.thumbnail((width, height), Image.Resampling.LANCZOS)
+        # cropped_image.save(options.outputfile, 'JPEG', quality=90)
+
         image_tensor = pil2tensor(cropped_image)
         return (image_tensor,)
