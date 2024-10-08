@@ -1,0 +1,15 @@
+[project]
+name = "comfyui-smartcrop"
+description = "a ComfyUI Custom Node for [a/smartcrop.py](https://github.com/smartcrop/smartcrop.py)"
+version = "1.0.0"
+license = {file = "LICENSE"}
+dependencies = ["Pillow==10.3.0"]
+
+[project.urls]
+Repository = "https://github.com/turkyden/ComfyUI-SmartCrop"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = ""
+DisplayName = "ComfyUI-SmartCrop"
+Icon = ""
